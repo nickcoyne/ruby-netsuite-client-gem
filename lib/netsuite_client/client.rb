@@ -12,7 +12,26 @@ class NetsuiteClient
     end
 
     def on_simple_outbound
-      @prefs
+      # @prefs
+
+      %Q(
+        <env:Header>
+          <passport env:mustUnderstand="0">
+            <email>#{ @prefs[:email] }</email>
+            <password>#{ @prefs[:password] }</password>
+            <account>#{ @prefs[:account] }<account>
+            <role internalId="#{ @prefs[:role] }"/>
+          <passport>
+          <preferences env:mustUnderstand="0">
+            <ignoreReadOnlyFields>true</ignoreReadOnlyFields>
+            <warningAsError>false</warningAsError>
+          </preferences>
+          <searchPreferences env:mustUnderstand="0">
+            <pageSize>25</pageSize>
+            <bodyFieldsOnly>false</bodyFieldsOnly>
+          </searchPreferences>
+        </env:Header>
+      )
     end
   end
 
